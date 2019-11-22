@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_prev"
+        android:icon="@drawable/icons8_trophy_out_24"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="@string/prev_match"/>
+    <item
+        android:id="@+id/nav_next"
+        android:icon="@drawable/icons8_schedule_24"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/next_match" />
+
+</menu>

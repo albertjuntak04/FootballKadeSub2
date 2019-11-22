@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    cardCornerRadius="15dp"
+    cardElevation="8dp"
+    cardUseCompatPadding="true"
+    android:layout_margin="4dp"
+    android:id="@+id/leangue_item"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="2000dp"
+            android:elevation="300dp">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/img_liga"
+                android:src="@drawable/ic_launcher_background">
+            </androidx.appcompat.widget.AppCompatImageView>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_liga"
+            android:text="@string/nama_liga"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp">
+        </TextView>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

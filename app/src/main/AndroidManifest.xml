@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.footballschedule">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.SearchEventActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MatchDetailActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.DetailLeagueActivity"
+            android:theme="@style/AppTheme.Detail"
+            />
+        <activity android:name=".activity.DetailLeagueActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.League"/>
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
