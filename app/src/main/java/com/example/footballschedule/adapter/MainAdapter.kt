@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballschedule.DataClub
 import com.example.footballschedule.R
 import com.example.footballschedule.league.League
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.liga_item.view.*
 
-class MainAdapter(private val context: Context, private val items: List<League>, private val listener: (League) -> Unit):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private val context: Context?, private val items: List<League>, private val listener: (League) -> Unit):RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(context).inflate(R.layout.liga_item, parent, false))
 

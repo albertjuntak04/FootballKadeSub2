@@ -1,7 +1,9 @@
-package com.example.footballschedule.searchevent
+package com.example.footballschedule.util
 
-import com.example.footballapi.api.ApiRepository
-import com.example.footballapi.model.ApiResponse
+
+import com.example.footballschedule.api.ApiRepository
+import com.example.footballschedule.model.ApiResponse
+import com.example.footballschedule.searchevent.SearchView
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

@@ -1,6 +1,6 @@
-package com.example.footballschedule.util
+package com.example.footballschedule.interfaceView
 
-import com.example.footballschedule.Team
+
 import com.example.footballschedule.league.League
 
 interface MainLeagueView {

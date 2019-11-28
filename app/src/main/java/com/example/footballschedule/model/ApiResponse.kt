@@ -1,4 +1,4 @@
-package com.example.footballapi.model
+package com.example.footballschedule.model
 
 import com.example.footballschedule.model.MatchDetail
 

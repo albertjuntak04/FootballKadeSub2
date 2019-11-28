@@ -21,22 +21,6 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/img_team"
                 android:src="@drawable/ic_launcher_background"/>
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:text="Canada"-->
-<!--                android:layout_below="@+id/image_view"-->
-<!--                android:id="@+id/name"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:gravity="center"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:textColor="#000"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:autoSizeTextType="uniform"-->
-<!--                android:autoSizeMinTextSize="8sp"-->
-<!--                android:autoSizeMaxTextSize="15sp"/>-->
-
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

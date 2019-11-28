@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballschedule.R
-import com.example.footballschedule.Team
+import com.example.footballschedule.model.Team
 import com.squareup.picasso.Picasso
 
 class TeamAdapter(private val context: Context, private val teams:List<Team>)

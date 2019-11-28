@@ -11,19 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SearchEventActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activity.MainActivity"></activity>
-        <activity android:name=".activity.MatchDetailActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activity.SearchEventActivity"
+            android:parentActivityName=".activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MatchDetailActivity"
             android:parentActivityName=".activity.DetailLeagueActivity"
-            android:theme="@style/AppTheme.Detail"
-            />
-        <activity android:name=".activity.DetailLeagueActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.League"/>
-        <activity android:name=".activity.MainActivity">
+            android:theme="@style/AppTheme.Detail" />
+        <activity
+            android:name=".activity.DetailLeagueActivity"
+            android:parentActivityName=".activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.League" />
+        <activity android:name=".activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

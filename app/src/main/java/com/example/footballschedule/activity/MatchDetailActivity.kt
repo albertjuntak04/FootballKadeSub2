@@ -1,32 +1,46 @@
 package com.example.footballschedule.activity
 
+import android.database.sqlite.SQLiteConstraintException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import com.example.footballapi.api.TheSportDBApi
+import androidx.core.content.ContextCompat
 import com.example.footballschedule.R
+import com.example.footballschedule.api.TheSportDBApi
 import com.example.footballschedule.changeFormatDate
+import com.example.footballschedule.database.Favorite
+import com.example.footballschedule.database.database
+import com.example.footballschedule.interfaceView.EventDetailView
 import com.example.footballschedule.model.MatchDetail
 import com.example.footballschedule.strToDate
 import com.example.footballschedule.util.EventDetailPresenter
-import com.example.footballschedule.util.EventDetailView
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 import org.jetbrains.anko.support.v4.onRefresh
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MatchDetailActivity : AppCompatActivity(), EventDetailView {
-
-
     private lateinit var event: MatchDetail
     private lateinit var presenter: EventDetailPresenter
+    private  var id: String = ""
+    private var menuItem: Menu? = null
+    private var isFavorite: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_detail)
+        val intent = intent
 
         event = intent.getParcelableExtra("EVENT")
+        id = event.eventId.toString()
 
         val date = strToDate(event.eventDate)
         date_match.text = changeFormatDate(date)
@@ -56,16 +70,22 @@ class MatchDetailActivity : AppCompatActivity(), EventDetailView {
             android.R.color.holo_orange_light,
             android.R.color.holo_red_light)
 
+
+        favoriteState()
     }
+
+
 
     override fun showLoading() {
         swipe_view.isRefreshing = true
     }
 
-    override fun hideloading() {
+    override fun hideLoading() {
         swipe_view.isRefreshing = false
 
     }
+
+
 
     override fun showDetail(
         eventDetail: MatchDetail,
@@ -91,15 +111,82 @@ class MatchDetailActivity : AppCompatActivity(), EventDetailView {
         subtitutes_home.text = if (eventDetail.homeLineupSubstitutes.isNullOrEmpty())"-" else eventDetail.homeLineupSubstitutes?.replace(";",";\n")
         subtitutes_away.text = if (eventDetail.awayLineupSubstitutes.isNullOrEmpty())"-" else eventDetail.awayLineupSubstitutes?.replace(";",";\n")
 
-        hideloading()
+        hideLoading()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            finish()
-            return true
-        } else {
-            return super.onOptionsItemSelected(item)
+        return when(item.itemId){
+            android.R.id.home ->{
+                finish()
+                true
+            }
+            R.id.add_to_favorites ->{
+                if (isFavorite) removeFromFavorite() else addToFavorite()
+
+                isFavorite = !isFavorite
+                setFavorite()
+                true
+            }
+
+            else -> {
+                return super.onOptionsItemSelected(item)
+            }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        menuItem = menu
+        setFavorite()
+        return true
+    }
+
+    private fun addToFavorite(){
+        try {
+            database.use {
+                insert(
+                    Favorite.TABLE_FAVORITE,
+                    Favorite.ID_EVENT to event.eventId,
+                    Favorite.HOME_ID to event.homeTeamId,
+                    Favorite.AWAY_ID to event.awayTeamId,
+                    Favorite.HOME_SCORE to event.homeScore,
+                    Favorite.AWAY_SCORE to event.awayScore,
+                    Favorite.AWAY_TEAM to event.awayTeam,
+                    Favorite.HOME_TEAM to event.homeTeam,
+                    Favorite.EVENT_DATE to event.eventDate)
+            }
+
+        } catch (e: SQLiteConstraintException){
+
+        }
+    }
+
+    private fun favoriteState(){
+        database.use {
+            val result = select(Favorite.TABLE_FAVORITE)
+                .whereArgs("(ID_EVENT = {id})",
+                    "id" to id)
+            val favorite = result.parseList(classParser<Favorite>())
+            if (favorite.isNotEmpty()) isFavorite = true
+        }
+    }
+
+    private fun removeFromFavorite(){
+        try {
+            database.use {
+                delete(Favorite.TABLE_FAVORITE, "(ID_EVENT = {id})",
+                    "id" to id)
+            }
+
+        } catch (e: SQLiteConstraintException){
+
+        }
+    }
+
+    private fun setFavorite() {
+        if (isFavorite)
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites)
+        else
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_add_to_favorites)
     }
 }

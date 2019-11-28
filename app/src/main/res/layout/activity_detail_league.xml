@@ -36,4 +36,5 @@
            android:foreground="?attr/selectableItemBackground"
            app:menu="@menu/navigation" />
    </RelativeLayout>
+
 </LinearLayout>

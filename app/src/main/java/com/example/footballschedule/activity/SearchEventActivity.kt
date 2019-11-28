@@ -1,5 +1,6 @@
 package com.example.footballschedule.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -10,8 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.footballschedule.NextMatchFragment
 import com.example.footballschedule.R
 import com.example.footballschedule.adapter.EventAdapter
+import com.example.footballschedule.util.SearchEventPresenter
 import com.example.footballschedule.model.MatchDetail
-import com.example.footballschedule.searchevent.SearchEventPresenter
 import com.example.footballschedule.searchevent.SearchView
 import com.example.footballschedule.searchevent.TheSportDBSearchApi
 import com.example.footballschedule.util.invisible
@@ -36,11 +37,10 @@ class SearchEventActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_search_event)
-        MatchUI(match).setContentView(this)
+        MatchUI().setContentView(this)
 
 
-        var query = intent.getStringExtra("query")
+        val query = intent.getStringExtra("query")
          theSportDBSearchApi = TheSportDBSearchApi(query)
         val api = theSportDBSearchApi.getSearchEvent()
         val gson = Gson()
@@ -54,19 +54,7 @@ class SearchEventActivity : AppCompatActivity(),
         presenter.getSearchTeamList()
     }
 
-    private fun initData(){
-        var query = intent.getStringExtra("query")
-        theSportDBSearchApi = TheSportDBSearchApi(query)
-        val api = theSportDBSearchApi.getSearchEvent()
-        val gson = Gson()
-        presenter = SearchEventPresenter(this, api, gson)
-        adapter = EventAdapter(match) {
-        }
 
-        recyclerView.adapter = adapter
-        presenter.getSearchTeamList()
-
-    }
 
     override fun showLoading() {
         swipe.isRefreshing = true
@@ -81,8 +69,8 @@ class SearchEventActivity : AppCompatActivity(),
 
     override fun showTeamList(data: List<MatchDetail>) {
         match.clear()
-        var fiterMatch = data.filter { it.eventSport == "Soccer" }
-        match.addAll(fiterMatch)
+        val filterMatch = data.filter { it.eventSport == "Soccer" }
+        match.addAll(filterMatch)
         adapter.notifyDataSetChanged()
     }
 
@@ -102,7 +90,8 @@ class SearchEventActivity : AppCompatActivity(),
         }
     }
 
-    inner class MatchUI(val items: List<MatchDetail>) : AnkoComponent<SearchEventActivity> {
+    inner class MatchUI : AnkoComponent<SearchEventActivity> {
+        @SuppressLint("SetTextI18n")
         override fun createView(ui: AnkoContext<SearchEventActivity>) = with(ui) {
             relativeLayout {
                 lparams(width = matchParent, height = wrapContent)

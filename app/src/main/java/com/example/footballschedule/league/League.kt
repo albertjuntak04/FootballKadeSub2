@@ -12,7 +12,7 @@ data class League(
     @SerializedName("strTwitter")
     var leagueTwitter: String? = null,
 
-    @SerializedName("strgender")
+    @SerializedName("strGender")
     var leagueGender: String? = null,
 
     @SerializedName("strCountry")

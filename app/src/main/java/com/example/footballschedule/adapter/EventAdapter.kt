@@ -1,9 +1,8 @@
 package com.example.footballschedule.adapter
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,7 +14,6 @@ import com.example.footballschedule.model.MatchDetail
 import com.example.footballschedule.strToDate
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
-import org.jetbrains.anko.custom.style
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class EventAdapter( private val event: List<MatchDetail>, private val listener: (MatchDetail) -> Unit)
@@ -25,7 +23,7 @@ class EventAdapter( private val event: List<MatchDetail>, private val listener: 
     
     
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val matchDate : TextView = itemView.findViewById(MatchUI.date)
+        private val matchDate : TextView = itemView.findViewById(date)
         private val homeTeam : TextView = itemView.findViewById(MatchUI.homeTeam)
         private val awayTeam : TextView = itemView.findViewById(MatchUI.awayTeam)
         private val scoreHome : TextView = itemView.findViewById(MatchUI.homeScore)
@@ -57,7 +55,7 @@ class EventAdapter( private val event: List<MatchDetail>, private val listener: 
 
     override fun getItemCount() = event.size
 
-    override fun onBindViewHolder(holder: EventAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(event[position], listener)
     }
 
@@ -70,6 +68,7 @@ class EventAdapter( private val event: List<MatchDetail>, private val listener: 
             const val awayTeam = 5
             const val vs = 6
         }
+        @SuppressLint("RtlHardcoded")
         override fun createView(ui: AnkoContext<ViewGroup>) = with(ui){
             cardView {
                 lparams(width = matchParent, height = 200){

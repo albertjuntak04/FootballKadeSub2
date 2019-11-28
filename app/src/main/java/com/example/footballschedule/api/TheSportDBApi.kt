@@ -1,4 +1,4 @@
-package com.example.footballapi.api
+package com.example.footballschedule.api
 
 import android.net.Uri
 import com.example.footballschedule.BuildConfig

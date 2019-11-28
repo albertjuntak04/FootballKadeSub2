@@ -1,7 +1,8 @@
 package com.example.footballschedule.league
 
-import com.example.footballapi.api.ApiRepository
+
 import com.example.footballschedule.activity.DetailLeagueActivity
+import com.example.footballschedule.api.ApiRepository
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -15,11 +16,16 @@ class LeaguePresenter(private val view: DetailLeagueActivity,
         view.showLoading()
 
         doAsync {
-            val data = gson.fromJson(ApiRepository().doRequest(api), com.example.footballschedule.league.LeagueResponse::class.java)
+            val data = gson.fromJson(ApiRepository().doRequest(api), LeagueResponse::class.java)
 
-            uiThread {
-              view.showList(data.leagues[0])
-        }
+            try {
+                uiThread {
+                    view.showList(data.leagues[0])
+                }
+            }catch (e : NullPointerException){
+                view.showEmptyData()
+
+            }
     }
  }
 }

@@ -1,6 +1,6 @@
 package com.example.footballschedule.searchevent
 
-import com.example.footballschedule.Team
+
 import com.example.footballschedule.model.MatchDetail
 
 interface SearchView {

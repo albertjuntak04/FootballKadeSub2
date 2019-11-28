@@ -1,8 +1,9 @@
 package com.example.footballschedule.util
 
-import com.example.footballapi.api.ApiRepository
-import com.example.footballapi.model.ApiResponse
+
 import com.example.footballschedule.activity.MatchDetailActivity
+import com.example.footballschedule.api.ApiRepository
+import com.example.footballschedule.model.ApiResponse
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -20,7 +21,7 @@ class EventDetailPresenter(private val view: MatchDetailActivity,
             val awayTeam = gson.fromJson(ApiRepository().doRequest(apiAwayTeam), ApiResponse::class.java)
 
             uiThread {
-                view.hideloading()
+                view.hideLoading()
                 view.showDetail(matchDetail.events[0], homeTeam.teams[0], awayTeam.teams[0])
             }
         }

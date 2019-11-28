@@ -1,7 +1,9 @@
 package com.example.footballschedule.util
 
-import com.example.footballapi.api.ApiRepository
+
+import com.example.footballschedule.api.ApiRepository
 import com.example.footballschedule.api.TheSportTeamApi
+import com.example.footballschedule.interfaceView.MainView
 import com.example.footballschedule.model.TeamResponse
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
@@ -25,6 +27,7 @@ class MainPresenter(private val view: MainView,
                 try {
                     view.showTeamList(data.teams!!)
                 } catch (e: NullPointerException){
+                    view.showEmptyData()
 
                 }
 

@@ -1,7 +1,7 @@
-package com.example.footballschedule.util
+package com.example.footballschedule.interfaceView
 
 
-import com.example.footballschedule.Team
+import com.example.footballschedule.model.Team
 
 interface MainView {
     fun showLoading()

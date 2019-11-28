@@ -1,20 +1,23 @@
 package com.example.footballschedule.activity
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballapi.api.ApiRepository
-import com.example.footballapi.api.TheSportDBApi
 import com.example.footballschedule.*
 import com.example.footballschedule.adapter.TeamAdapter
+import com.example.footballschedule.api.ApiRepository
+import com.example.footballschedule.api.TheSportDBApi
+import com.example.footballschedule.fragment.TeamsFragment
+import com.example.footballschedule.interfaceView.MainView
 import com.example.footballschedule.league.League
 import com.example.footballschedule.league.LeaguePresenter
 import com.example.footballschedule.league.LeagueView
+import com.example.footballschedule.model.Team
 import com.example.footballschedule.util.MainPresenter
-import com.example.footballschedule.util.MainView
 import com.example.footballschedule.util.invisible
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -39,7 +42,7 @@ class DetailLeagueActivity : AppCompatActivity(), MainView, LeagueView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_league)
 
-        val league = intent.getParcelableExtra<League>(MainActivity.PARCELABLE_ID_DATA)
+        val league = intent.getParcelableExtra<League>(TeamsFragment.PARCELABLE_ID_DATA)
         leagueId = league.leagueId.toString()
 
 
@@ -97,11 +100,11 @@ class DetailLeagueActivity : AppCompatActivity(), MainView, LeagueView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item?.itemId == android.R.id.home) {
+        return if (item.itemId == android.R.id.home) {
             finish()
-            return true
+            true
         } else {
-            return super.onOptionsItemSelected(item)
+            super.onOptionsItemSelected(item)
         }
     }
 
@@ -140,7 +143,8 @@ class DetailLeagueActivity : AppCompatActivity(), MainView, LeagueView {
         twitter_league.text = data.leagueTwitter
         description_league.text = data.leagueDescription
         country_league.text = data.leagueCountry
-        Picasso.get().load(data.leagueLogo).into(img_liga)
+        Picasso.get().load(data.leagueLogo).fit().into(img_liga)
+
 
     }
 }

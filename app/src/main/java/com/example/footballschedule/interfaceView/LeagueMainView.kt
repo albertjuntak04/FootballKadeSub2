@@ -1,4 +1,4 @@
-package com.example.footballschedule.mainleague
+package com.example.footballschedule.interfaceView
 
 import com.example.footballschedule.league.League
 

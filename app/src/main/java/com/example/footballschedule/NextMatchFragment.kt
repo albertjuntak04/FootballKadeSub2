@@ -1,4 +1,5 @@
 package com.example.footballschedule
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -7,13 +8,12 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.footballapi.api.TheSportDBApi
-import com.example.footballschedule.activity.MainActivity
 import com.example.footballschedule.activity.MatchDetailActivity
 import com.example.footballschedule.adapter.EventAdapter
+import com.example.footballschedule.api.TheSportDBApi
+import com.example.footballschedule.interfaceView.MatchView
 import com.example.footballschedule.model.MatchDetail
 import com.example.footballschedule.util.MatchPresenter
-import com.example.footballschedule.util.MatchView
 import com.example.footballschedule.util.invisible
 import com.example.footballschedule.util.visible
 import com.google.gson.Gson
@@ -21,13 +21,12 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 /**
  * A simple [Fragment] subclass.
  */
-class NextMatchFragment : Fragment() , MatchView{
+class NextMatchFragment : Fragment() , MatchView {
 
     private var match: MutableList<MatchDetail> = mutableListOf()
     private lateinit var presenter: MatchPresenter
@@ -49,7 +48,7 @@ class NextMatchFragment : Fragment() , MatchView{
             return fragment
         }
 
-        val lay_match = 1
+        const val lay_match = 1
     }
 
 
@@ -91,7 +90,7 @@ class NextMatchFragment : Fragment() , MatchView{
         emptyDataView.invisible()
     }
 
-    override fun hideloading() {
+    override fun hideLoading() {
         swipe.isRefreshing = false
         emptyDataView.invisible()
 
@@ -112,17 +111,10 @@ class NextMatchFragment : Fragment() , MatchView{
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            startActivity<MainActivity>()
-            return true
-
-        } else {
-            return super.onOptionsItemSelected(item)
-        }
-    }
 
 
+
+    @SuppressLint("SetTextI18n")
     fun createView(ui: AnkoContext<Context>) = with(ui){
         relativeLayout{
             lparams(width = matchParent, height = wrapContent)
@@ -164,4 +156,5 @@ class NextMatchFragment : Fragment() , MatchView{
 
         }
     }
+
 }
